@@ -7,6 +7,7 @@ import java.util.Scanner;
  */
 public class Solution4 {
 
+    //Queue에 저장하기 위한 자료구조입니다. 
     static class Node{
         int x;
         int y;
@@ -19,6 +20,7 @@ public class Solution4 {
             return (String.valueOf(x)+"_"+String.valueOf(y)).hashCode();
         }
         @Override
+	//Queue에 속해 있는지 검사하기 위해 사용됩니다.
         public boolean equals(Object obj) {
             Node node = (Node)obj;
             if(this.x == node.x && this.y == node.y){
@@ -47,8 +49,12 @@ public class Solution4 {
         System.out.printf("%d %d\n",result[0], result[1]);
     }
 
+    
     public static long[] getAnswer(int m, int n, int s, int[][] timeMap){
-        int[][] pathLen = new int[m][n];
+        
+	//pathSum 은 해당 위치까지의 경로중 가장 작은 시간합을 저장하고 있습니다. 
+	//pathLen 은 가장 작은 시간합일 때의 원점으로부터 path 길이를 저장하고 있습니다.
+	int[][] pathLen = new int[m][n];
         long[][] pathSum = new long[m][n];
 
         for(int i=0; i<m; i++){
@@ -62,6 +68,9 @@ public class Solution4 {
 
         Queue<Node> queue = new LinkedList<>();
         queue.offer(new Node(0,0));
+	
+	//Queue에는 update 된 지점을 보유하고 있습니다. 
+	//그 지점에서 다시 위,아래,왼쪽,오른쪽을 확인하여 그들 중 더 작은값이 나오면 Queue에 넣어줍니다. 
         while(!queue.isEmpty()){
             int size = queue.size();
             for(int i=0; i<size; i++){
